@@ -1,49 +1,21 @@
 const express = require('express')
 const app = express()
 
-const mysql = require('mysql')
 const cors = require('cors')
+const userRoute = require('./routes/User')
+const categoryRoute = require('./routes/Category')
+const uploadRoute = require('./routes/Upload')
+const postsRoute = require('./routes/Posts')
 
 app.use(cors())
 app.use(express.json())
+app.use('/user', userRoute)
+app.use('/category', categoryRoute)
+app.use('/upload', uploadRoute)
+app.use('/posts', postsRoute)
 
 
-const db = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	database: 'reviews',
-	password: 'Power_123',
-})
-
-app.post('/create', (req, res) => {
-	const id = req.body.id
-	const title = req.body.title
-	const description = req.body.description
-
-	db.query("INSERT INTO data_table (id,title,description) VALUES (?,?,?)", [
-		id, title, description
-	], (err, result) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.send("Values Inserted")
-		}
-	})
-})
-
-
-app.get('/reviews', (req, res) => {
-	db.query("SELECT * FROM data_table", (err, result) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.send(result)
-		}
-	})
-})
-
-app.listen(3001, () => {
-	console.log('running port 3001');
+app.listen(5000, () => {
+	console.log('Runn port 5000');
 
 })
-
