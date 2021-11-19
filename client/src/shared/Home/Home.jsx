@@ -1,6 +1,5 @@
 import {
 	Avatar,
-	Button,
 	Card,
 	CardActions,
 	CardContent,
@@ -18,11 +17,15 @@ import axios from 'axios'
 import {Image} from 'cloudinary-react'
 import React, {useEffect, useState} from 'react'
 import {makeStyles} from '@mui/styles'
+import MyLoader from '../../components/MyLoader/MyLoader'
 
 const useStyles = makeStyles({
 	image: {
 		width: 300,
 		height: 200,
+	},
+	container: {
+		maxWidth: '100%',
 	},
 })
 
@@ -30,6 +33,7 @@ const Home = () => {
 	const classes = useStyles()
 	const [value, setValue] = useState(0)
 	const [posts, setPosts] = useState([])
+	// const [like, setLike] = useState([])
 
 	useEffect(() => {
 		axios.get('http://localhost:5000/posts/get').then((response) => {
@@ -38,23 +42,34 @@ const Home = () => {
 	}, [])
 
 	const likePost = (id) => {
-		console.log(id)
+		axios
+			.post('http://localhost:5000/posts/like/post', {
+				userLike: localStorage.getItem('name'),
+				postId: id,
+			})
+			.then((response) => {
+				axios.get('http://localhost:5000/posts/get').then((resp) => {
+					setPosts(resp.data)
+				})
+			})
 	}
 
 	return (
-		<Container maxWidth='xl'>
+		<Container className={classes.container}>
 			<Paper
-				maxWidth='xl'
+				className={classes.container}
 				sx={{padding: '2rem', marginTop: '2rem'}}
 				elevation={2}
 				variant='elevation'
 			>
 				<Grid container direction='row' alignItems='center' justifyContent='start'>
 					{posts.length === 0
-						? 'Loading...'
+						? Array(8)
+								.fill(0)
+								.map((_, index) => <MyLoader key={index} />)
 						: posts.map((post) => {
 								return (
-									<Card key={post.id} sx={{maxWidth: 300, marginBottom: '2rem', margin: '1rem'}}>
+									<Card key={post.id} sx={{width: 300, marginBottom: '2rem', margin: '1rem'}}>
 										<CardHeader
 											avatar={
 												<Avatar sx={{bgcolor: 'green'}} aria-label='recipe'>
@@ -80,13 +95,21 @@ const Home = () => {
 												{post.text}
 											</Typography>
 										</CardContent>
-										<CardActions>{post.category}</CardActions>
+										<CardActions>
+											<Typography
+												sx={{marginLeft: '0.5rem'}}
+												variant='body2'
+												color='text.secondary'
+											>
+												{post.category}
+											</Typography>
+										</CardActions>
 										<CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
 											<Grid>
 												<IconButton onClick={() => likePost(post.id)} aria-label='add to favorites'>
 													<FavoriteIcon color='error' />
 												</IconButton>
-												{0}
+												{post.likes}
 											</Grid>
 
 											<Rating
