@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 	},
 })
 
-const CreateReview = () => {
+const CreateReview = ({setPosts}) => {
 	const history = useHistory()
 	const classes = useStyles()
 	const [title, setTitle] = useState('')
@@ -47,7 +47,7 @@ const CreateReview = () => {
 
 	const createReview = () => {
 		if (select === null) {
-			alert('КАТЕГОРИЮ SELECT!!!')
+			alert('Select Category')
 		} else {
 			const formData = new FormData()
 			formData.append('file', image[0])
@@ -67,7 +67,10 @@ const CreateReview = () => {
 							category: select,
 						})
 						.then(() => {
-							history.push('/')
+							axios.get('http://localhost:5000/posts/get').then((resp) => {
+								setPosts(resp.data)
+								history.push('/')
+							})
 						})
 				})
 		}

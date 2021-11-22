@@ -27,15 +27,32 @@ router.post('/like/post', (req, res) => {
 			res.send(result)
 		})
 
+
 	})
 })
-// router.post('/like/get', (req, res) => {
-// 	db.query("SELECT * FROM like", (err, result) => {
-// 		if (err) {
-// 			console.log(err)
-// 		}
-// 		res.send(result)
-// 	})
-// })
+
+router.put('/update', (req, res) => {
+	const { title, text, postId } = req.body
+
+	db.query("UPDATE posts SET title = ?, text = ? WHERE id = ?", [title, text, postId], (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+})
+
+router.delete('/delete', (req, res) => {
+	const postId = req.body.postId
+
+	db.query("DELETE from posts WHERE id = ?", postId, (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+})
+
+
 
 module.exports = router

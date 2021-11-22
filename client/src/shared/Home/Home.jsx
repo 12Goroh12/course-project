@@ -11,11 +11,13 @@ import {
 	Rating,
 	Typography,
 } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 import {Image} from 'cloudinary-react'
-import React, {useEffect, useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {makeStyles} from '@mui/styles'
 import MyLoader from '../../components/MyLoader/MyLoader'
 
@@ -29,17 +31,9 @@ const useStyles = makeStyles({
 	},
 })
 
-const Home = () => {
+const Home = ({posts, setPosts}) => {
 	const classes = useStyles()
 	const [value, setValue] = useState(0)
-	const [posts, setPosts] = useState([])
-	// const [like, setLike] = useState([])
-
-	useEffect(() => {
-		axios.get('http://localhost:5000/posts/get').then((response) => {
-			setPosts(response.data)
-		})
-	}, [])
 
 	const likePost = (id) => {
 		axios
@@ -52,6 +46,16 @@ const Home = () => {
 					setPosts(resp.data)
 				})
 			})
+	}
+
+	const deletePost = (id) => {
+		if (window.confirm('Are you sure you want to delete the review ??')) {
+			axios.delete('http://localhost:5000/posts/delete', {data: {postId: id}}).then((response) => {
+				axios.get('http://localhost:5000/posts/get').then((resp) => {
+					setPosts(resp.data)
+				})
+			})
+		}
 	}
 
 	return (
@@ -78,7 +82,9 @@ const Home = () => {
 											}
 											action={
 												post.author === localStorage.getItem('name') ? (
-													<HighlightOffIcon color='inherit' />
+													<IconButton onClick={() => deletePost(post.id)}>
+														<HighlightOffIcon color='inherit' />
+													</IconButton>
 												) : null
 											}
 											title={post.title}
@@ -123,6 +129,17 @@ const Home = () => {
 													setValue(newValue)
 												}}
 											/>
+
+											<Link
+												style={{textDecoration: 'none', color: '#000'}}
+												to={`/review/${post.id}`}
+											>
+												{post.author === localStorage.getItem('name') ? (
+													<IconButton>
+														<EditIcon />
+													</IconButton>
+												) : null}
+											</Link>
 										</CardActions>
 									</Card>
 								)
