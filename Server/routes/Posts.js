@@ -26,9 +26,18 @@ router.post('/like/post', (req, res) => {
 			}
 			res.send(result)
 		})
-
-
 	})
+})
+
+router.put('/rating/post', (req, res) => {
+	const { postId, rating } = req.body
+	db.query("UPDATE posts SET rating = ? WHERE id = ?", [rating, postId], (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+
 })
 
 router.put('/update', (req, res) => {

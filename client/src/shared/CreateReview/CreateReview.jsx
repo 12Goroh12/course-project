@@ -1,7 +1,10 @@
 import {Button, ButtonGroup, Container, Grid, Paper, TextField, Typography} from '@mui/material'
 import React, {useState, useEffect} from 'react'
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
+import AddIcon from '@mui/icons-material/Add'
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
+import {styled} from '@mui/material/styles'
 import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles({
@@ -20,10 +23,10 @@ const useStyles = makeStyles({
 	input: {
 		marginBottom: '2rem',
 	},
-	btn: {
-		height: '55px',
-		marginLeft: '1rem',
-	},
+})
+
+const Input = styled(TextField)({
+	display: 'none',
 })
 
 const CreateReview = ({setPosts}) => {
@@ -80,8 +83,6 @@ const CreateReview = ({setPosts}) => {
 		setSelect(string)
 	}
 
-	console.log(select)
-
 	return (
 		<Container container='true' fixed>
 			<Grid
@@ -135,14 +136,18 @@ const CreateReview = ({setPosts}) => {
 						/>
 						<Grid container direction='row' justifyContent='space-between' alignItems='center'>
 							<label htmlFor='contained-button-file'>
-								<TextField
+								<Input
 									onChange={(e) => setImage(e.target.files)}
+									accept='image/*'
 									id='contained-button-file'
 									multiple
 									type='file'
 								/>
+								<Button startIcon={<PhotoCameraIcon />} variant='contained' component='span'>
+									Upload
+								</Button>
 							</label>
-							<Button onClick={createReview} variant='contained' className={classes.btn}>
+							<Button onClick={createReview} variant='contained' startIcon={<AddIcon />}>
 								Create Review
 							</Button>
 						</Grid>

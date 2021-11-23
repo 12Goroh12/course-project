@@ -25,7 +25,7 @@ const Navbar = () => {
 							Home Page
 						</Link>
 					</Typography>
-					{loggedIn && loggedIn ? (
+					{localStorage.getItem('name') ? (
 						<Button color='inherit' variant='outlined'>
 							<Link style={{textDecoration: 'none', color: '#fff'}} to='/create'>
 								create review

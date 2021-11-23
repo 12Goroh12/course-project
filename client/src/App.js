@@ -13,20 +13,17 @@ import EdditPost from './components/EdditPost/EdditPost'
 const App = () => {
 	const [posts, setPosts] = useState([])
 	useEffect(() => {
-		if (!localStorage.getItem('loggedIn')) {
-			localStorage.setItem('loggedIn', false)
-		}
 		axios.get('http://localhost:5000/posts/get').then((response) => {
 			setPosts(response.data)
 		})
 	}, [])
 
 	return (
-		<AppContext.Provider value={{
-
-		}}>
+		<AppContext.Provider value={{}}>
 			<Router>
-				<Navbar />
+				<Switch>
+					<Navbar path='/' />
+				</Switch>
 				<Switch>
 					<Route path='/' exact>
 						<Home setPosts={setPosts} posts={posts} />

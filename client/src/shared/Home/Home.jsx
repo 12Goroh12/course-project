@@ -12,12 +12,13 @@ import {
 	Typography,
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {Image} from 'cloudinary-react'
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {makeStyles} from '@mui/styles'
 import MyLoader from '../../components/MyLoader/MyLoader'
 
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
 
 const Home = ({posts, setPosts}) => {
 	const classes = useStyles()
-	const [value, setValue] = useState(0)
+	const [value, setValue] = useState(undefined)
 
 	const likePost = (id) => {
 		axios
@@ -44,6 +45,19 @@ const Home = ({posts, setPosts}) => {
 			.then((response) => {
 				axios.get('http://localhost:5000/posts/get').then((resp) => {
 					setPosts(resp.data)
+				})
+			})
+	}
+
+	const ratingHandler = (id, value) => {
+		axios
+			.put('http://localhost:5000/posts/rating/post', {
+				postId: id,
+				rating: value,
+			})
+			.then(() => {
+				axios.get('http://localhost:5000/posts/get').then((response) => {
+					setPosts(response.data)
 				})
 			})
 	}
@@ -113,19 +127,23 @@ const Home = ({posts, setPosts}) => {
 										<CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
 											<Grid>
 												<IconButton onClick={() => likePost(post.id)} aria-label='add to favorites'>
-													<FavoriteIcon color='error' />
+													{post.likes === 0 ? (
+														<FavoriteBorderIcon />
+													) : (
+														<FavoriteIcon color='error' />
+													)}
 												</IconButton>
 												{post.likes}
 											</Grid>
 
 											<Rating
 												name='simple-controlled'
-												value={value}
+												value={post.rating}
 												defaultValue={value}
 												precision={1}
 												max={5}
 												onChange={(event, newValue) => {
-													console.log(newValue)
+													ratingHandler(post.id, newValue)
 													setValue(newValue)
 												}}
 											/>

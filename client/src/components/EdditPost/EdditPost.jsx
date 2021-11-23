@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
 import {useParams, useHistory} from 'react-router-dom'
 import {Button, Container, Grid, Paper, TextField, Typography} from '@mui/material'
@@ -23,6 +23,7 @@ const EdditPost = ({posts, setPosts}) => {
 					setPosts(response.data)
 				})
 			})
+
 		setTitleEdit('')
 		setTextEdit('')
 		history.push('/')
@@ -43,7 +44,7 @@ const EdditPost = ({posts, setPosts}) => {
 					alignItems='center'
 				>
 					<Typography component='div' color='textSecondary' gutterBottom variant='h4'>
-						Review editing
+						Review editing {title}
 					</Typography>
 					<TextField
 						id='outlined-textarea'
@@ -62,9 +63,16 @@ const EdditPost = ({posts, setPosts}) => {
 						rows={6}
 						fullWidth
 					/>
-					<Button onClick={() => updatePost(id)} variant='contained' color='success'>
-						Edit
-					</Button>
+					<Grid container direction='row' justifyContent='end' alignItems='center'>
+						<Button
+							sx={{width: '30%'}}
+							onClick={() => updatePost(id)}
+							variant='contained'
+							color='primary'
+						>
+							Edit
+						</Button>
+					</Grid>
 				</Grid>
 			</Paper>
 		</Container>

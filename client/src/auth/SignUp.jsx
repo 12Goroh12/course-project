@@ -40,12 +40,6 @@ const SignUp = () => {
 		}
 	}
 
-	// const getUser = () => {
-	// 	axios.get('http://localhost:5000/user/get').then(({data}) => {
-	// 		console.log(data)
-	// 	})
-	// }
-
 	return (
 		<Container container='true'>
 			<form className={classes.form} onSubmit={handleSubmit(onSumbit)}>

@@ -35,16 +35,15 @@ router.post('/login', (req, res) => {
 	})
 })
 
-// router.get('/get', (req, res) => {
-
-// 	db.query("SELECT * FROM users", (err, result) => {
-
-// 		if (err) {
-// 			console.log(err)
-// 		} else {
-// 			res.send(result)
-// 		}
-// 	})
-// })
+router.get('/get/:name', (req, res) => {
+	const { name } = req.params
+	db.query("SELECT * FROM posts WHERE author = ?", name, (err, result) => {
+		if (err) {
+			console.log(err)
+		} else {
+			res.send(result)
+		}
+	})
+})
 
 module.exports = router
