@@ -12,6 +12,7 @@ import EdditPost from './components/EdditPost/EdditPost'
 
 const App = () => {
 	const [posts, setPosts] = useState([])
+
 	useEffect(() => {
 		axios.get('http://localhost:5000/posts/get').then((response) => {
 			setPosts(response.data)
@@ -35,7 +36,7 @@ const App = () => {
 						<Login />
 					</Route>
 					<Route path='/user' exact>
-						<UserPage />
+						<UserPage setPosts={setPosts} posts={posts} />
 					</Route>
 					<Route path='/create' exact>
 						<CreateReview setPosts={setPosts} />

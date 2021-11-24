@@ -46,4 +46,17 @@ router.get('/get/:name', (req, res) => {
 	})
 })
 
+router.get('/:name', (req, res) => {
+	const { name } = req.params
+
+	db.query("SELECT * users WHERE name = ?", name, (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+
+	})
+
+})
+
 module.exports = router

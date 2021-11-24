@@ -19,8 +19,8 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {Image} from 'cloudinary-react'
 import React, {useState} from 'react'
-import {makeStyles} from '@mui/styles'
 import MyLoader from '../../components/MyLoader/MyLoader'
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles({
 	image: {
@@ -85,83 +85,92 @@ const Home = ({posts, setPosts}) => {
 						? Array(8)
 								.fill(0)
 								.map((_, index) => <MyLoader key={index} />)
-						: posts.map((post) => {
-								return (
-									<Card key={post.id} sx={{width: 300, marginBottom: '2rem', margin: '1rem'}}>
-										<CardHeader
-											avatar={
-												<Avatar sx={{bgcolor: 'green'}} aria-label='recipe'>
-													{post.author.slice(0, 1)}
-												</Avatar>
-											}
-											action={
-												post.author === localStorage.getItem('name') ? (
-													<IconButton onClick={() => deletePost(post.id)}>
-														<HighlightOffIcon color='inherit' />
-													</IconButton>
-												) : null
-											}
-											title={post.title}
-											subheader={post.author}
-										/>
-
-										<Image cloudName='bsslmves' publicId={post.image} className={classes.image} />
-										<CardContent>
-											<Typography
-												sx={{height: '100px', overflow: 'hidden'}}
-												variant='body2'
-												color='text.secondary'
-											>
-												{post.text}
-											</Typography>
-										</CardContent>
-										<CardActions>
-											<Typography
-												sx={{marginLeft: '0.5rem'}}
-												variant='body2'
-												color='text.secondary'
-											>
-												{post.category}
-											</Typography>
-										</CardActions>
-										<CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
-											<Grid>
-												<IconButton onClick={() => likePost(post.id)} aria-label='add to favorites'>
-													{post.likes === 0 ? (
-														<FavoriteBorderIcon />
-													) : (
-														<FavoriteIcon color='error' />
-													)}
-												</IconButton>
-												{post.likes}
-											</Grid>
-
-											<Rating
-												name='simple-controlled'
-												value={post.rating}
-												defaultValue={value}
-												precision={1}
-												max={5}
-												onChange={(event, newValue) => {
-													ratingHandler(post.id, newValue)
-													setValue(newValue)
-												}}
+						: posts
+								.map((post) => {
+									return (
+										<Card key={post.id} sx={{width: 300, marginBottom: '2rem', margin: '1rem'}}>
+											<CardHeader
+												avatar={
+													<Avatar sx={{bgcolor: 'green'}} aria-label='recipe'>
+														{post.author.slice(0, 1)}
+													</Avatar>
+												}
+												action={
+													post.author === localStorage.getItem('name') ? (
+														<IconButton onClick={() => deletePost(post.id)}>
+															<HighlightOffIcon color='inherit' />
+														</IconButton>
+													) : null
+												}
+												title={
+													post.title.length > 20
+														? post.title.slice(0, 20).concat('...')
+														: post.title
+												}
+												subheader={post.author}
 											/>
 
-											<Link
-												style={{textDecoration: 'none', color: '#000'}}
-												to={`/review/${post.id}`}
-											>
-												{post.author === localStorage.getItem('name') ? (
-													<IconButton>
-														<EditIcon />
+											<Image cloudName='bsslmves' publicId={post.image} className={classes.image} />
+											<CardContent>
+												<Typography
+													sx={{height: '100px', overflow: 'hidden'}}
+													variant='body2'
+													color='text.secondary'
+												>
+													{post.text}
+												</Typography>
+											</CardContent>
+											<CardActions>
+												<Typography
+													sx={{marginLeft: '0.5rem'}}
+													variant='body2'
+													color='text.secondary'
+												>
+													{post.category}
+												</Typography>
+											</CardActions>
+											<CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
+												<Grid>
+													<IconButton
+														onClick={() => likePost(post.id)}
+														aria-label='add to favorites'
+													>
+														{post.likes === 0 ? (
+															<FavoriteBorderIcon />
+														) : (
+															<FavoriteIcon color='error' />
+														)}
 													</IconButton>
-												) : null}
-											</Link>
-										</CardActions>
-									</Card>
-								)
-						  })}
+													{post.likes}
+												</Grid>
+
+												<Rating
+													name='simple-controlled'
+													value={post.rating}
+													defaultValue={value}
+													precision={1}
+													max={5}
+													onChange={(event, newValue) => {
+														ratingHandler(post.id, newValue)
+														setValue(newValue)
+													}}
+												/>
+
+												<Link
+													style={{textDecoration: 'none', color: '#000'}}
+													to={`/review/${post.id}`}
+												>
+													{post.author === localStorage.getItem('name') ? (
+														<IconButton>
+															<EditIcon />
+														</IconButton>
+													) : null}
+												</Link>
+											</CardActions>
+										</Card>
+									)
+								})
+								.reverse()}
 				</Grid>
 			</Paper>
 		</Container>
