@@ -9,6 +9,7 @@ import AppContext from './Context/Context'
 import UserPage from './users/UserPage/UserPage'
 import CreateReview from './shared/CreateReview/CreateReview'
 import EdditPost from './components/EdditPost/EdditPost'
+import SelectPost from './components/SelectPost/SelectPost'
 
 const App = () => {
 	const [posts, setPosts] = useState([])
@@ -43,6 +44,9 @@ const App = () => {
 					</Route>
 					<Route path='/review/:id' exact>
 						<EdditPost posts={posts} setPosts={setPosts} />
+					</Route>
+					<Route path='/post/:id' exact>
+						<SelectPost posts={posts} setPosts={setPosts} />
 					</Route>
 				</Switch>
 			</Router>

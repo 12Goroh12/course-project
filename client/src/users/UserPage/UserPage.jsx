@@ -6,6 +6,8 @@ import {makeStyles} from '@mui/styles'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import NoReviews from '../../components/NoReviews/NoReviews'
+import {Link} from 'react-router-dom'
+import SelectSort from '../../components/SelectSort/SelectSort'
 
 const useStyles = makeStyles({
 	image: {
@@ -62,17 +64,20 @@ const UserPage = ({setPosts, posts}) => {
 			>
 				{localStorage.getItem('name')}
 			</Typography>
-			<ButtonGroup variant='contained' sx={{mb: '1rem'}}>
-				{category &&
-					category.map((item) => (
-						<Button
-							onClick={() => sortCategory(item.category_name, localStorage.getItem('name'))}
-							key={item.id}
-						>
-							{item.category_name}
-						</Button>
-					))}
-			</ButtonGroup>
+			<Grid container direction='row' justifyContent='space-between' alignItems='center'>
+				<ButtonGroup variant='contained' sx={{mb: '1rem'}}>
+					{category &&
+						category.map((item) => (
+							<Button
+								onClick={() => sortCategory(item.category_name, localStorage.getItem('name'))}
+								key={item.id}
+							>
+								{item.category_name}
+							</Button>
+						))}
+				</ButtonGroup>
+				<SelectSort setUserPost={setUserPost} />
+			</Grid>
 
 			{userPost.length === 0 ? (
 				<NoReviews />
@@ -124,9 +129,14 @@ const UserPage = ({setPosts, posts}) => {
 									</Grid>
 									<Grid container justifyContent='end' item xs={6} md={8}>
 										<Grid>
-											<Button startIcon={<EditIcon />} variant='outlined' color='success'>
-												Edit
-											</Button>
+											<Link
+												style={{textDecoration: 'none', color: '#000'}}
+												to={`/review/${value.id}`}
+											>
+												<Button startIcon={<EditIcon />} variant='outlined' color='success'>
+													Edit
+												</Button>
+											</Link>
 											<Button
 												onClick={() => deletePost(value.id)}
 												sx={{marginLeft: '0.5rem'}}

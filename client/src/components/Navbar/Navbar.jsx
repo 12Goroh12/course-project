@@ -4,7 +4,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import {Link} from 'react-router-dom'
 
 const Navbar = () => {
-	const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn'))
+	// const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn'))
 	const [name, setName] = useState(localStorage.getItem('name'))
 
 	const logOff = () => {

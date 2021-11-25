@@ -122,6 +122,7 @@ const CreateReview = ({setPosts}) => {
 							multiline
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
+							// inputProps={{readOnly: true}}
 						/>
 						<TextField
 							fullWidth

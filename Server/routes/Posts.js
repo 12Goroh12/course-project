@@ -62,6 +62,37 @@ router.delete('/delete', (req, res) => {
 	})
 })
 
+router.get('/sortBy/:name/title', (req, res) => {
+	const { name } = req.params
+
+	db.query("SELECT * FROM posts WHERE author = ? order by title asc ", name, (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+})
+router.get('/sortBy/:name/likes', (req, res) => {
+	const { name } = req.params
+
+	db.query("SELECT * FROM posts WHERE author = ? order by likes desc ", name, (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+})
+router.get('/sortBy/:name/rating', (req, res) => {
+	const { name } = req.params
+
+	db.query("SELECT * FROM posts WHERE author = ? order by rating desc ", name, (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+})
+
 
 
 module.exports = router

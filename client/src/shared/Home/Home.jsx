@@ -26,6 +26,9 @@ const useStyles = makeStyles({
 	image: {
 		width: 300,
 		height: 200,
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	container: {
 		maxWidth: '100%',
@@ -109,8 +112,13 @@ const Home = ({posts, setPosts}) => {
 												}
 												subheader={post.author}
 											/>
-
-											<Image cloudName='bsslmves' publicId={post.image} className={classes.image} />
+											<Link to={`/post/${post.id}`}>
+												<Image
+													cloudName='bsslmves'
+													publicId={post.image}
+													className={classes.image}
+												/>
+											</Link>
 											<CardContent>
 												<Typography
 													sx={{height: '100px', overflow: 'hidden'}}
@@ -131,30 +139,60 @@ const Home = ({posts, setPosts}) => {
 											</CardActions>
 											<CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
 												<Grid>
-													<IconButton
-														onClick={() => likePost(post.id)}
-														aria-label='add to favorites'
-													>
-														{post.likes === 0 ? (
-															<FavoriteBorderIcon />
-														) : (
-															<FavoriteIcon color='error' />
-														)}
-													</IconButton>
+													{localStorage.getItem('name') ? (
+														<IconButton
+															onClick={() => likePost(post.id)}
+															aria-label='add to favorites'
+														>
+															{post.likes === 0 ? (
+																<FavoriteBorderIcon />
+															) : (
+																<FavoriteIcon color='error' />
+															)}
+														</IconButton>
+													) : (
+														<IconButton
+															disabled
+															onClick={() => likePost(post.id)}
+															aria-label='add to favorites'
+														>
+															{post.likes === 0 ? (
+																<FavoriteBorderIcon />
+															) : (
+																<FavoriteIcon readOnly color='error' />
+															)}
+														</IconButton>
+													)}
+
 													{post.likes}
 												</Grid>
 
-												<Rating
-													name='simple-controlled'
-													value={post.rating}
-													defaultValue={value}
-													precision={1}
-													max={5}
-													onChange={(event, newValue) => {
-														ratingHandler(post.id, newValue)
-														setValue(newValue)
-													}}
-												/>
+												{localStorage.getItem('name') ? (
+													<Rating
+														name='simple-controlled'
+														value={post.rating}
+														defaultValue={value}
+														precision={1}
+														max={5}
+														onChange={(event, newValue) => {
+															ratingHandler(post.id, newValue)
+															setValue(newValue)
+														}}
+													/>
+												) : (
+													<Rating
+														name='simple-controlled'
+														value={post.rating}
+														defaultValue={value}
+														precision={1}
+														readOnly
+														max={5}
+														onChange={(event, newValue) => {
+															ratingHandler(post.id, newValue)
+															setValue(newValue)
+														}}
+													/>
+												)}
 
 												<Link
 													style={{textDecoration: 'none', color: '#000'}}
