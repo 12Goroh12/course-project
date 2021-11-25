@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Button, ButtonGroup, Container, Grid, Paper, Typography} from '@mui/material'
 import {Image} from 'cloudinary-react'
-import {makeStyles} from '@mui/styles'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import NoReviews from '../../components/NoReviews/NoReviews'
 import {Link} from 'react-router-dom'
 import SelectSort from '../../components/SelectSort/SelectSort'
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles({
 	image: {

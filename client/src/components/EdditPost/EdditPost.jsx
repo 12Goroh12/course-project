@@ -8,7 +8,7 @@ const EdditPost = ({posts, setPosts}) => {
 	const history = useHistory()
 	const [titleEdit, setTitleEdit] = useState('')
 	const [textEdit, setTextEdit] = useState('')
-	let post = posts.filter((item) => item.id == id)
+	let post = posts.filter((item) => Number(item.id) === Number(id))
 	let {title, text} = post[0]
 
 	const updatePost = (id) => {
