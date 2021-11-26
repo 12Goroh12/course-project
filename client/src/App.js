@@ -10,9 +10,12 @@ import UserPage from './users/UserPage/UserPage'
 import CreateReview from './shared/CreateReview/CreateReview'
 import EdditPost from './components/EdditPost/EdditPost'
 import SelectPost from './components/SelectPost/SelectPost'
+import GetFeedback from './shared/GetFeedback/GetFeedback'
 
 const App = () => {
+	const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn'))
 	const [posts, setPosts] = useState([])
+	const [postSearch, setPostSearch] = useState([])
 
 	useEffect(() => {
 		axios.get('http://localhost:5000/posts/get').then((response) => {
@@ -24,7 +27,7 @@ const App = () => {
 		<AppContext.Provider value={{}}>
 			<Router>
 				<Switch>
-					<Navbar path='/' />
+					<Navbar postSearch={postSearch} setPostSearch={setPostSearch} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 				</Switch>
 				<Switch>
 					<Route path='/' exact>
@@ -34,7 +37,7 @@ const App = () => {
 						<SignUp />
 					</Route>
 					<Route path='/login' exact>
-						<Login />
+						<Login setLoggedIn={setLoggedIn} />
 					</Route>
 					<Route path='/user' exact>
 						<UserPage setPosts={setPosts} posts={posts} />
@@ -47,6 +50,9 @@ const App = () => {
 					</Route>
 					<Route path='/post/:id' exact>
 						<SelectPost posts={posts} setPosts={setPosts} />
+					</Route>
+					<Route path='/feedback' exact>
+						<GetFeedback postSearch={postSearch} />
 					</Route>
 				</Switch>
 			</Router>

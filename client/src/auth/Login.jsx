@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 	},
 })
 
-const Login = () => {
+const Login = ({setLoggedIn}) => {
 	const {register, handleSubmit, reset} = useForm({mode: 'onChange'})
 	const classes = useStyles()
 	const [errorMessage, setErrorMessage] = useState('')
@@ -31,12 +31,13 @@ const Login = () => {
 			if (response.data.loggedIn) {
 				localStorage.setItem('loggedIn', true)
 				localStorage.setItem('name', response.data.name)
+				setLoggedIn((prev) => !prev)
 				history.push('/')
 				reset()
 			} else {
 				setErrorMessage(response.data.message)
 			}
-			console.log(response)
+			console.log(response.data)
 		} catch (error) {
 			console.log(error)
 		}

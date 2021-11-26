@@ -12,6 +12,17 @@ router.get('/get', (req, res) => {
 	})
 })
 
+router.get('/search/:query', (req, res) => {
+	const query = req.params.query
+
+	db.query("SELECT * FROM posts WHERE MATCH (title,text) against (?)", query, (err, result) => {
+		if (err) {
+			console.log(err)
+		}
+		res.send(result)
+	})
+})
+
 router.post('/like/post', (req, res) => {
 	const userLike = req.body.userLike
 	const postId = req.body.postId

@@ -91,7 +91,9 @@ const UserPage = ({setPosts, posts}) => {
 					>
 						<Grid container columnSpacing={{xs: 1, sm: 2, md: 3}}>
 							<Grid item xs={6} md={4}>
-								<Image className={classes.image} cloudName='bsslmves' publicId={value.image} />
+								<Link to={`/post/${value.id}`}>
+									<Image className={classes.image} cloudName='bsslmves' publicId={value.image} />
+								</Link>
 							</Grid>
 							<Grid container direction='row' item xs={6} md={8}>
 								<Grid>

@@ -108,7 +108,7 @@ const CreateReview = ({setPosts}) => {
 						)}
 						<ButtonGroup color='inherit' sx={{marginBottom: '1rem'}}>
 							{category.map((item) => (
-								<Button onClick={() => selectCategory(item.category_name)}>
+								<Button key={item.id} onClick={() => selectCategory(item.category_name)}>
 									{item.category_name}
 								</Button>
 							))}

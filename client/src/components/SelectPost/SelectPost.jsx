@@ -8,6 +8,9 @@ const useStyles = makeStyles({
 	image: {
 		width: '100%',
 		height: '100%',
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 })
 
@@ -77,16 +80,23 @@ const SelectPost = ({posts, setPosts}) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
-							<Grid>Comment</Grid>
+						<Grid container direction='column'>
+							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
+								<Typography>Классный филм</Typography>
+								<Typography color='textSecondary'>автор: Дмитрий</Typography>
+							</Paper>
+							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
+								<Typography>Классный филм</Typography>
+								<Typography color='textSecondary'>автор: Дмитрий</Typography>
+							</Paper>
+							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
+								<Typography>Классный филм</Typography>
+								<Typography color='textSecondary'>автор: Дмитрий</Typography>
+							</Paper>
+							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
+								<Typography>Классный филм</Typography>
+								<Typography color='textSecondary'>автор: Дмитрий</Typography>
+							</Paper>
 						</Grid>
 					</Grid>
 
