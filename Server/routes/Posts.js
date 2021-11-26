@@ -15,7 +15,7 @@ router.get('/get', (req, res) => {
 router.get('/search/:query', (req, res) => {
 	const query = req.params.query
 
-	db.query("SELECT * FROM posts WHERE MATCH (title,text) against (?)", query, (err, result) => {
+	db.query("SELECT * FROM posts WHERE MATCH (title, text, category, author) against (?)", query, (err, result) => {
 		if (err) {
 			console.log(err)
 		}
