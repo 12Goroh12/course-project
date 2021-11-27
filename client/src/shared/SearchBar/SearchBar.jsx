@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 	},
 }))
 
-const SearchBar = ({setPostSearch, postSearch}) => {
+const SearchBar = ({setPostSearch}) => {
 	const classes = useStyles()
 	const history = useHistory()
 	const [query, setQuery] = useState('')

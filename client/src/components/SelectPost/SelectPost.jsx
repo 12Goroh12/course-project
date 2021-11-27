@@ -80,24 +80,6 @@ const SelectPost = ({posts, setPosts}) => {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Grid container direction='column'>
-							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
-								<Typography>Классный филм</Typography>
-								<Typography color='textSecondary'>автор: Дмитрий</Typography>
-							</Paper>
-							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
-								<Typography>Классный филм</Typography>
-								<Typography color='textSecondary'>автор: Дмитрий</Typography>
-							</Paper>
-							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
-								<Typography>Классный филм</Typography>
-								<Typography color='textSecondary'>автор: Дмитрий</Typography>
-							</Paper>
-							<Paper sx={{padding: '1rem', marginTop: '1rem'}} elevation={1} variant='outlined'>
-								<Typography>Классный филм</Typography>
-								<Typography color='textSecondary'>автор: Дмитрий</Typography>
-							</Paper>
-						</Grid>
 					</Grid>
 
 					<Paper
