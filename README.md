@@ -15,3 +15,4 @@
 - `express`
 - `mysql`
 - `nodemon`
+  deploy
