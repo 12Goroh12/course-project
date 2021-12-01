@@ -4,6 +4,8 @@ import {Button, Container, Grid, Paper, TextField, Typography} from '@mui/materi
 import {useForm} from 'react-hook-form'
 import {useHistory} from 'react-router'
 import {makeStyles} from '@mui/styles'
+import {auth, providerGoogle} from './firebase-config.js'
+import {signInWithPopup} from 'firebase/auth'
 
 const useStyles = makeStyles({
 	form: {
@@ -41,6 +43,28 @@ const Login = ({setLoggedIn}) => {
 		} catch (error) {
 			console.log(error)
 		}
+	}
+
+	const signWithGoogle = () => {
+		signInWithPopup(auth, providerGoogle)
+			.then((result) => {
+				axios
+					.post('http://localhost:5000/user/login', {
+						name: result.user.displayName,
+						password: result.user.uid,
+						email: result.user.email,
+					})
+					.then((res) => {
+						if (result.user.displayName) {
+							localStorage.setItem('loggedIn', true)
+							localStorage.setItem('name', result.user.displayName)
+							history.push('/')
+						}
+					})
+			})
+			.catch((err) => {
+				console.log(err)
+			})
 	}
 
 	return (
@@ -87,11 +111,20 @@ const Login = ({setLoggedIn}) => {
 							/>
 							<Button
 								type='submit'
-								sx={{width: '100%', height: '50px'}}
+								sx={{width: '100%', height: '50px', marginBottom: '0.5rem'}}
 								variant='contained'
 								color='primary'
 							>
 								Login
+							</Button>
+							<Button
+								onClick={signWithGoogle}
+								type='submit'
+								sx={{width: '100%', height: '50px'}}
+								variant='outlined'
+								color='inherit'
+							>
+								Sin in With Google
 							</Button>
 						</Grid>
 					</Paper>

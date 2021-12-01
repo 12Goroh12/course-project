@@ -2,15 +2,19 @@ import React, {useState} from 'react'
 import {Box, AppBar, Toolbar, Typography, Button, IconButton} from '@mui/material'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import {Link} from 'react-router-dom'
+import {auth} from '../../auth/firebase-config'
 import SearchBar from '../../shared/SearchBar/SearchBar'
 
 const Navbar = ({setLoggedIn, loggedIn, postSearch, setPostSearch}) => {
 	const [name, setName] = useState(localStorage.getItem('name'))
 
 	const logOff = () => {
-		localStorage.setItem('loggedIn', false)
-		setName(localStorage.removeItem('name'))
-		setLoggedIn((prev) => !prev)
+		if (window.confirm('Do you really want to leave ???')) {
+			auth.signOut()
+			localStorage.setItem('loggedIn', false)
+			setName(localStorage.removeItem('name'))
+			setLoggedIn((prev) => !prev)
+		}
 	}
 
 	return (
