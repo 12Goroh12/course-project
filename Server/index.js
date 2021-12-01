@@ -17,6 +17,5 @@ app.use('/posts', postsRoute)
 const PORT = 5000
 
 app.listen(process.env.PORT || PORT, () => {
-	res.header("Access-Control-Allow-Origin", "*");
 	console.log(`Runn port ${PORT}`);
 })
