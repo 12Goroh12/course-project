@@ -19,8 +19,6 @@ const SelectPost = ({posts, setPosts}) => {
 	const classes = useStyles()
 	let post = posts.find((item) => Number(item.id) === Number(id))
 
-	console.log(post)
-
 	return (
 		<Container xs={12} md={8} maxWidth='lg'>
 			{post === undefined ? (

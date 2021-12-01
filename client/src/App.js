@@ -18,7 +18,7 @@ const App = () => {
 	const [postSearch, setPostSearch] = useState([])
 
 	useEffect(() => {
-		axios.get('http://localhost:5000/posts/get').then((response) => {
+		axios.get('https://course-deploy.herokuapp.com/posts/get').then((response) => {
 			setPosts(response.data)
 		})
 	}, [])

@@ -62,7 +62,7 @@ const SearchBar = ({setPostSearch}) => {
 
 	const getSearchPost = () => {
 		if (query !== '') {
-			axios.get(`http://localhost:5000/posts/search/${query}`).then((resp) => {
+			axios.get(`https://course-deploy.herokuapp.com/posts/search/${query}`).then((resp) => {
 				setPostSearch(resp.data)
 				setQuery('')
 				if (resp.data.length !== 0) {

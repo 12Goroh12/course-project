@@ -12,19 +12,25 @@ const SelectSort = ({setUserPost}) => {
 	const handleChange = (event) => {
 		if (event.target.value === 30) {
 			axios
-				.get(`http://localhost:5000/posts/sortBy/${localStorage.getItem('name')}/title`)
+				.get(
+					`https://course-deploy.herokuapp.com/posts/sortBy/${localStorage.getItem('name')}/title`,
+				)
 				.then((response) => {
 					setUserPost(response.data)
 				})
 		} else if (event.target.value === 20) {
 			axios
-				.get(`http://localhost:5000/posts/sortBy/${localStorage.getItem('name')}/likes`)
+				.get(
+					`https://course-deploy.herokuapp.com/posts/sortBy/${localStorage.getItem('name')}/likes`,
+				)
 				.then((response) => {
 					setUserPost(response.data)
 				})
 		} else if (event.target.value === 10) {
 			axios
-				.get(`http://localhost:5000/posts/sortBy/${localStorage.getItem('name')}/rating`)
+				.get(
+					`https://course-deploy.herokuapp.com/posts/sortBy/${localStorage.getItem('name')}/rating`,
+				)
 				.then((response) => {
 					setUserPost(response.data)
 				})

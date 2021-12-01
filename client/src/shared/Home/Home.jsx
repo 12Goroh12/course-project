@@ -41,12 +41,12 @@ const Home = ({posts, setPosts}) => {
 
 	const likePost = (id) => {
 		axios
-			.post('http://localhost:5000/posts/like/post', {
+			.post('https://course-deploy.herokuapp.com/posts/like/post', {
 				userLike: localStorage.getItem('name'),
 				postId: id,
 			})
 			.then((response) => {
-				axios.get('http://localhost:5000/posts/get').then((resp) => {
+				axios.get('https://course-deploy.herokuapp.com/posts/get').then((resp) => {
 					setPosts(resp.data)
 				})
 			})
@@ -54,12 +54,12 @@ const Home = ({posts, setPosts}) => {
 
 	const ratingHandler = (id, value) => {
 		axios
-			.put('http://localhost:5000/posts/rating/post', {
+			.put('https://course-deploy.herokuapp.com/posts/rating/post', {
 				postId: id,
 				rating: value,
 			})
 			.then(() => {
-				axios.get('http://localhost:5000/posts/get').then((response) => {
+				axios.get('https://course-deploy.herokuapp.com/posts/get').then((response) => {
 					setPosts(response.data)
 				})
 			})
@@ -67,11 +67,13 @@ const Home = ({posts, setPosts}) => {
 
 	const deletePost = (id) => {
 		if (window.confirm('Are you sure you want to delete the review ??')) {
-			axios.delete('http://localhost:5000/posts/delete', {data: {postId: id}}).then((response) => {
-				axios.get('http://localhost:5000/posts/get').then((resp) => {
-					setPosts(resp.data)
+			axios
+				.delete('https://course-deploy.herokuapp.com/posts/delete', {data: {postId: id}})
+				.then((response) => {
+					axios.get('https://course-deploy.herokuapp.com/posts/get').then((resp) => {
+						setPosts(resp.data)
+					})
 				})
-			})
 		}
 	}
 

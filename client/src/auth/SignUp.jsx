@@ -27,7 +27,7 @@ const SignUp = () => {
 
 	const onSumbit = async ({name, email, password}) => {
 		try {
-			const response = await axios.post('http://localhost:5000/user/register', {
+			const response = await axios.post('https://course-deploy.herokuapp.com/user/register', {
 				name: name,
 				password: password,
 				email: email,

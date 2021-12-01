@@ -13,13 +13,13 @@ const EdditPost = ({posts, setPosts}) => {
 
 	const updatePost = (id) => {
 		axios
-			.put('http://localhost:5000/posts/update', {
+			.put('https://course-deploy.herokuapp.com/posts/update', {
 				title: titleEdit,
 				text: textEdit,
 				postId: id,
 			})
 			.then(() => {
-				axios.get('http://localhost:5000/posts/get').then((response) => {
+				axios.get('https://course-deploy.herokuapp.com/posts/get').then((response) => {
 					setPosts(response.data)
 				})
 			})

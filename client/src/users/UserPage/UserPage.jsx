@@ -22,14 +22,16 @@ const UserPage = ({setPosts, posts}) => {
 	const [category, setCategory] = useState([])
 
 	useEffect(() => {
-		axios.get(`http://localhost:5000/user/get/${localStorage.getItem('name')}`).then(({data}) => {
-			setUserPost(data)
-		})
+		axios
+			.get(`https://course-deploy.herokuapp.com/user/get/${localStorage.getItem('name')}`)
+			.then(({data}) => {
+				setUserPost(data)
+			})
 	}, [posts])
 
 	useEffect(() => {
 		const getCategory = () => {
-			axios.get('http://localhost:5000/category/get').then(({data}) => {
+			axios.get('https://course-deploy.herokuapp.com/category/get').then(({data}) => {
 				setCategory(data)
 			})
 		}
@@ -38,18 +40,20 @@ const UserPage = ({setPosts, posts}) => {
 	}, [])
 
 	const sortCategory = (name, author) => {
-		axios.get(`http://localhost:5000/category/get/${name}/${author}`).then((resp) => {
+		axios.get(`https://course-deploy.herokuapp.com/category/get/${name}/${author}`).then((resp) => {
 			setUserPost(resp.data)
 		})
 	}
 
 	const deletePost = (id) => {
 		if (window.confirm('Are you sure you want to delete the review ??')) {
-			axios.delete('http://localhost:5000/posts/delete', {data: {postId: id}}).then((response) => {
-				axios.get('http://localhost:5000/posts/get').then((resp) => {
-					setPosts(resp.data)
+			axios
+				.delete('https://course-deploy.herokuapp.com/posts/delete', {data: {postId: id}})
+				.then((response) => {
+					axios.get('https://course-deploy.herokuapp.com/posts/get').then((resp) => {
+						setPosts(resp.data)
+					})
 				})
-			})
 		}
 	}
 

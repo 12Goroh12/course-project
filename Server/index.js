@@ -14,8 +14,8 @@ app.use('/category', categoryRoute)
 app.use('/upload', uploadRoute)
 app.use('/posts', postsRoute)
 
+const PORT = 5000
 
-app.listen(5000, () => {
-	console.log('Runn port 5000');
-
+app.listen(process.env.PORT || PORT, () => {
+	console.log(`Runn port ${PORT}`);
 })
