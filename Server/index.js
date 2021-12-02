@@ -16,6 +16,8 @@ app.use('/posts', postsRoute)
 
 const PORT = 5000
 
+
+
 app.listen(process.env.PORT || PORT, () => {
-	console.log(`Runn port ${PORT}`);
+	console.log(`Runn port ${PORT}!`);
 })

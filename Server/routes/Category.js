@@ -21,8 +21,8 @@ router.get('/get/:name/:author', (req, res) => {
 router.delete('/delete/:id', (req, res) => {
 	const { id } = req.params
 	db.query('DELETE from posts WHERE id = ?', id, (err, result) => {
-		if (err) {
-			console.log(err)
+		if (error) {
+			console.log(error)
 		}
 		res.send(result)
 	})
