@@ -7,7 +7,9 @@ const categoryRoute = require('./routes/Category')
 const uploadRoute = require('./routes/Upload')
 const postsRoute = require('./routes/Posts')
 
-app.use(cors())
+app.use(cors({
+	origin: 'https://course-project-deploy.herokuapp.com'
+}))
 app.use(express.json())
 app.use('/user', userRoute)
 app.use('/category', categoryRoute)
