@@ -8,7 +8,7 @@ const uploadRoute = require('./routes/Upload')
 const postsRoute = require('./routes/Posts')
 
 app.use(cors({
-	origin: 'https://course-project-deploy.herokuapp.com'
+	origin: 'https://youthful-noether-84930f.netlify.app/'
 }))
 app.use(express.json())
 app.use('/user', userRoute)
