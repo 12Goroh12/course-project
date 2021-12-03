@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 
 const db = mysql.createConnection({
-	user: 'b475fc39736d2a',
+	user: 'bad64001dd9722',
 	host: 'us-cdbr-east-04.cleardb.com',
-	password: '18212277',
-	database: 'heroku_839c524c89f960b',
+	password: '395af6f4',
+	database: 'heroku_bf0d2028aee397f',
 })
 
 module.exports = db
