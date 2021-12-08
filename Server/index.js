@@ -7,9 +7,7 @@ const categoryRoute = require('./routes/Category')
 const uploadRoute = require('./routes/Upload')
 const postsRoute = require('./routes/Posts')
 
-app.use(cors({
-	origin: 'https://youthful-noether-84930f.netlify.app/'
-}))
+app.use(cors())
 app.use(express.json())
 app.use('/user', userRoute)
 app.use('/category', categoryRoute)
